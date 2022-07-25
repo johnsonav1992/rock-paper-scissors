@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors!</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- game wrapper -->
+    <div class="game-wrapper">
+        
+        <!-- Score Board -->
+        <div class="score-board">
+            <div class="player-score">
+                <h2>Player</h2>
+                <p>0</p>
+            </div>
+            <div class="computer-score">
+                <h2>Computer</h2>
+                <p>0</p>
+            </div>
+        </div>
+
+        <!-- Intro Screen -->
+        <div class="intro-screen show" >
+            <h1>Rock, Paper, Scissors!</h1>
+            <button class="play-button">Click to Play</button>
+        </div>
+        
+        <!-- Match Screen -->
+        <div class="match hide">
+            <h1 class="winner-message">Choose an Option</h1>
+            <div class="hands">
+                <img class="player-hand" src="./assets/rock.png" alt="">
+                <img class="computer-hand" src="./assets/rock.png" alt="">
+            </div>
+            <div class="options">
+                <button class="rock">Rock</button>
+                <button class="paper">Paper</button>
+                <button class="scissors">Scissors</button>
+            </div>
+            
+        </div>
+
+        <!-- End Game Screen --> 
+        <div class="end-game-screen hide">
+            <h1 class="final-winner"></h1>
+            <button class="play-again-button">Click to Play Again</button>
+        </div>
+
+    </div>
+    
+    
+</body>
+</html>
