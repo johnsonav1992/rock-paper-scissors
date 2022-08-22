@@ -1,6 +1,8 @@
 //Initialize Score variables
-let playerScore = 0;
-let computerScore = 0;
+const scores = {
+    playerScore:  0,
+    computerScore: 0
+}
 
 // Select all elements 
 const introScreen = document.querySelector('.intro-screen')
@@ -30,33 +32,31 @@ function startGame() {
         playMatch()
     })
 
-    //Play Again
-    playAgainButton.addEventListener('click', () => {
-        endGameScreen.classList.add('hide')
-        endGameScreen.classList.remove('show')
-        introScreen.classList.remove('show')
-        introScreen.classList.add('hide')
-        match.classList.add('show')
-        match.classList.remove('hide')
-
-        //reset hand images and message text
-        winnerMessage.textContent = 'Choose an Option'
-        playerHand.src = `./assets/rock.png`
-        computerHand.src = `./assets/rock.png`
-
-        playMatch()
-    })
-
 }
 
+ //Play Again
+ function playAgain() {
+    scores.playerScore = 0
+    scores.computerScore = 0
+    endGameScreen.classList.add('hide')
+    endGameScreen.classList.remove('show')
+    introScreen.classList.remove('show')
+    introScreen.classList.add('hide')
+    match.classList.add('show')
+    match.classList.remove('hide')
 
+    //reset hand images and message text
+    winnerMessage.textContent = 'Choose an Option'
+    playerHand.src = `./assets/rock.png`
+    computerHand.src = `./assets/rock.png`
+
+    playMatch()
+}
 
 //Play Match
 function playMatch() {
 
     //Reset Scores
-    playerScore = 0;
-    computerScore = 0;
     playerScoreText.textContent = '0'
     computerScoreText.textContent = '0'
 
@@ -114,17 +114,15 @@ function compareHands(playerChoice, computerChoice) {
     if (playerChoice === "rock") {
         if (computerChoice === "scissors") {
             winnerMessage.textContent = "Player Wins!"
-            playerScore++
-            console.log(`player: ${playerScore}`)
-            roundWinCheck(playerScore, computerScore)
-            updateScore()
+            scores.playerScore++
+            roundWinCheck(scores)
+            updateScore(scores)
             return
         } else {
             winnerMessage.textContent = "Computer Wins!"
-            computerScore++
-            console.log(`computer: ${computerScore}`)
-            roundWinCheck(playerScore, computerScore)
-            updateScore()
+            scores.computerScore++
+            roundWinCheck(scores)
+            updateScore(scores)
             return
         }
     }
@@ -133,17 +131,15 @@ function compareHands(playerChoice, computerChoice) {
     if (playerChoice === "paper") {
         if (computerChoice === "rock") {
             winnerMessage.textContent = "Player Wins!"
-            playerScore++
-            console.log(`player: ${playerScore}`)
-            roundWinCheck(playerScore, computerScore)
-            updateScore()
+            scores.playerScore++
+            roundWinCheck(scores)
+            updateScore(scores)
             return
         } else {
             winnerMessage.textContent = "Computer Wins!"
-            computerScore++
-            console.log(`computer: ${computerScore}`)
-            roundWinCheck(playerScore, computerScore)
-            updateScore()
+            scores.computerScore++
+            roundWinCheck(scores)
+            updateScore(scores)
             return
         }
     }
@@ -152,17 +148,15 @@ function compareHands(playerChoice, computerChoice) {
     if (playerChoice === "scissors") {
         if (computerChoice === "paper") {
             winnerMessage.textContent = "Player Wins!"
-            playerScore++
-            console.log(`player: ${playerScore}`)
-            roundWinCheck(playerScore, computerScore)
-            updateScore()
+            scores.playerScore++
+            roundWinCheck(scores)
+            updateScore(scores)
             return
         } else {
             winnerMessage.textContent = "Computer Wins!"
-            computerScore++
-            console.log(`computer: ${computerScore}`)
-            roundWinCheck(playerScore, computerScore)
-            updateScore()
+            scores.computerScore++
+            roundWinCheck(scores)
+            updateScore(scores)
             return
         }
     }
@@ -172,18 +166,18 @@ function compareHands(playerChoice, computerChoice) {
 }
 
 //Update Score
-function updateScore() {
-    playerScoreText.textContent = playerScore
-    computerScoreText.textContent = computerScore
+function updateScore(scores) {
+    playerScoreText.textContent = scores.playerScore
+    computerScoreText.textContent = scores.computerScore
     return
 }
 
 //Check for Winning Round
-function roundWinCheck(playerScore, computerScore) {
-    if (playerScore === 3) {
+function roundWinCheck(scores) {
+    if (scores.playerScore === 3) {
         endGame()
         finalWinnerMessage.textContent = 'You won the match!'
-    } else if (computerScore === 3) {
+    } else if (scores.computerScore === 3) {
         endGame()
         finalWinnerMessage.textContent = 'Computer won the match...Sorry!'
     }
@@ -198,28 +192,6 @@ function endGame() {
 
 }
 
-//Restart Game
-// function restartGame() {
-//     introScreen.classList.remove('show')
-//     match.classList.add('show')
-//     match.classList.remove('hide')
-//     endGameScreen.classList.remove('show')
-//     endGameScreen.classList.add('hide')
+playAgainButton.addEventListener('click', playAgain)
 
-//     //reset hand images and message text
-//     winnerMessage.textContent = 'Choose an Option'
-//     playerHand.src = `./assets/rock.png`
-//     computerHand.src = `./assets/rock.png`
 
-//     //Reset Scores
-//     playerScore = 0
-//     computerScore = 0
-//     playerScoreText.textContent = playerScore
-//     computerScoreText.textContent = computerScore
-
-//     console.log(playerScore)
-//     console.log(computerScore)
-        
-//     //start new round
-//     playMatch()
-// }
