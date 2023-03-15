@@ -53,6 +53,38 @@ function startGame() {
     playMatch()
 }
 
+
+function handleOptionClick(e) {
+    console.log('option clicked')    
+
+    //computer options
+    const computerOptions = ["rock", "paper", "scissors"]
+    const computerNum = Math.floor(Math.random() * 3)
+    const computerChoice = computerOptions[computerNum]
+
+    let playerChoice = e.target.textContent
+    playerChoice = playerChoice.toLowerCase()
+
+    
+    //Match result delayed after animation
+    setTimeout(() => {
+        compareHands(playerChoice, computerChoice)
+
+        //update images
+        playerHand.src = `./assets/${playerChoice}.png`
+        computerHand.src = `./assets/${computerChoice}.png`
+
+    }, 2000);
+    
+    //Animation
+    playerHand.style.animation = 'shakePlayerHand 2s ease'
+    computerHand.style.animation = 'shakeComputerHand 2s ease'
+
+    //Reset to rock hands for next round
+    playerHand.src = `./assets/rock.png`
+    computerHand.src = `./assets/rock.png`
+}
+
 //Play Match
 function playMatch() {
 
@@ -60,50 +92,25 @@ function playMatch() {
     playerScoreText.textContent = '0'
     computerScoreText.textContent = '0'
 
-    //computer options
-    const computerOptions = ["rock", "paper", "scissors"]
+    // Remove old event listeners so buttons don't get clicked twice!!
+    optionButtons.forEach(option => {
+        option.removeEventListener('click', handleOptionClick)
+    })
 
+    optionButtons.forEach(option => {
+        option.addEventListener('click', handleOptionClick)
+    })
+    
     handImages.forEach(hand => {
         hand.addEventListener('animationend', e => {
             e.target.style.animation = ''
         })
     })
-
-    //When player clicks an option
-    optionButtons.forEach(option => {
-        option.addEventListener('click', e => {
-            
-            const computerNum = Math.floor(Math.random() * 3)
-            const computerChoice = computerOptions[computerNum]
-
-            let playerChoice = e.target.textContent
-            playerChoice = playerChoice.toLowerCase()
-        
-            
-            //Match result delayed after animation
-            setTimeout(() => {
-                compareHands(playerChoice, computerChoice)
-
-                //update images
-                playerHand.src = `./assets/${playerChoice}.png`
-                computerHand.src = `./assets/${computerChoice}.png`
-
-            }, 2000);
-            
-            //Animation
-            playerHand.style.animation = 'shakePlayerHand 2s ease'
-            computerHand.style.animation = 'shakeComputerHand 2s ease'
-
-            //Reset to rock hands for next round
-            playerHand.src = `./assets/rock.png`
-            computerHand.src = `./assets/rock.png`
-        })
-    })
-    
 }
 
 //Compare Hands
 function compareHands(playerChoice, computerChoice) {
+    console.log('comparing hands', {playerChoice, computerChoice})
     //Tie
     if (playerChoice === computerChoice) {
         winnerMessage.textContent = "It's a draw!"
