@@ -196,7 +196,6 @@ function endGame() {
     endGameScreen.classList.remove('hide')
     match.classList.remove('show')
     match.classList.add('hide')
-
 }
 
 playAgainButton.addEventListener('click', playAgain)
